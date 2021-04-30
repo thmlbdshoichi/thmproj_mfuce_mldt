@@ -13,7 +13,7 @@ library(rpart.plot)
 library(C50)
 
 #IMPORT DATASET
-df <- read.csv("songkran_cat_finalv2.csv",header= T, stringsAsFactors = T, na.strings="")
+df <- read.csv("songkran_cat_final.csv",header= T, stringsAsFactors = T, na.strings="")
 
 #DROP USELESS COLUMNS
 #df <- df[,-c(1)] # Drop useless columns
