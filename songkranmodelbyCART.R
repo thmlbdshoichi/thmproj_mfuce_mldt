@@ -33,7 +33,7 @@ flds <- createFolds(train$Status, k = 10, list = TRUE, returnTrain = FALSE) #10-
 modelCART <- caret::train(Status~., train, method= 'rpart', tuneLength = 5,
                           trControl = trainControl(method="cv",indexOut=flds,classProbs = TRUE),na.action=na.pass)
 # Plot Tree of New Model
-fancyRpartPlot(modelCART$finalModel,cex=0.75)
+fancyRpartPlot(modelCART$finalModel,cex=0.7)
 
 # Result of Decision Tree model using Algorithm CART (rpart) | Gini Index
 resultCART <- predict(modelCART, test)

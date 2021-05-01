@@ -26,15 +26,16 @@ set.seed(221)
 trainIndex <- createDataPartition(df[,length(df)],p = 0.7,list = FALSE, times = 1)
 train <- df[trainIndex,, drop = FALSE]
 test <- df[-trainIndex,, drop = FALSE]
-
+test
 # Model Training "C4.5" using Parameter method = "J48"
 set.seed(1234)
 flds <- createFolds(train$Status, k = 10, list = TRUE, returnTrain = FALSE) #10-fold
-modelC45 <- caret::train(Status~., train, method= 'J48', tuneLength = 5,
+modelC45 <- caret::train(Status~., train, method= 'ID3', tuneLength = 5,
                           trControl = trainControl(method="cv",indexOut=flds,classProbs = TRUE),na.action=na.pass)
 # Plot Tree of New Model
 fancyRpartPlot(modelC45$finalModel,cex=0.75)
-
+plot(modelC45$finalModel,margin = .1)
+pppp
 # Result of Decision Tree model using Algorithm C4.5 (J48) | Entropy, Information Gain
 resultC45 <- predict(modelC45, test)
 test$Status <- as.factor(test$Status)
