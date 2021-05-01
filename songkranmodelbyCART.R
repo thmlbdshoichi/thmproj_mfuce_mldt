@@ -16,22 +16,25 @@ library(C50)
 df <- read.csv("songkran_cat_final.csv",header= T, stringsAsFactors = T, na.strings="")
 
 #DROP USELESS COLUMNS
-df <- df[,-c(1)]
+#df <- df[,-c(1)]
 
 #CHECK DATASET
 head(df)
 
 # Data Partitioning
-set.seed(221)
+set.seed(1234)
 trainIndex <- createDataPartition(df[,length(df)],p = 0.7,list = FALSE, times = 1)
 train <- df[trainIndex,, drop = FALSE]
 test <- df[-trainIndex,, drop = FALSE]
 
 # Model Training "CART" using Parameter method = "rpart"
-set.seed(1234)
+set.seed(4321)
 flds <- createFolds(train$Status, k = 10, list = TRUE, returnTrain = FALSE) #10-fold
 modelCART <- caret::train(Status~., train, method= 'rpart', tuneLength = 5,
-                          trControl = trainControl(method="cv",indexOut=flds,classProbs = TRUE),na.action=na.pass)
+                          trControl = trainControl
+                          (method="cv",indexOut=flds
+                            ,classProbs = TRUE),na.action=na.pass)
+
 # Plot Tree of New Model
 fancyRpartPlot(modelCART$finalModel,cex=0.7)
 
@@ -59,4 +62,4 @@ cat("AUC is", unlist(aucCART@y.values),"\n")
 
 # Plot ROC FOR model CART
 perfCART <- performance(predCART, 'tpr', 'fpr')
-plot(perfCART, lty=3, cex = 2,main="ROC of CART model")
+V
